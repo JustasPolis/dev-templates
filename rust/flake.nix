@@ -30,16 +30,6 @@
             };
       })
     ];
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {inherit system;};
-    codelldb = pkgs.writeTextFile {
-      name = "codelldb";
-      destination = "/bin/codelldb";
-      executable = true;
-      text = ''
-        ${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb
-      '';
-    };
     supportedSystems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
     forEachSupportedSystem = f:
       nixpkgs.lib.genAttrs supportedSystems
@@ -56,8 +46,11 @@
           cargo-watch
           rust-analyzer
           pkg-config
-          codelldb
+          vscode-extensions.vadimcn.vscode-lldb
         ];
+        shellHook = ''
+          export PATH=$PATH:${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter
+        '';
       };
     });
   };
