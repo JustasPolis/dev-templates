@@ -46,11 +46,7 @@
           cargo-watch
           rust-analyzer
           pkg-config
-          vscode-extensions.vadimcn.vscode-lldb
         ];
-        shellHook = ''
-          export PATH=$PATH:${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter
-        '';
       };
     });
   };
